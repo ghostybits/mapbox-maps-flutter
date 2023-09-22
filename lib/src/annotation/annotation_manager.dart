@@ -6,13 +6,6 @@ class _AnnotationManager {
   _AnnotationManager({required _MapboxMapsPlatform mapboxMapsPlatform})
       : _mapboxMapsPlatform = mapboxMapsPlatform;
 
-  /// Create a PointAnnotationManager to add/remove/update PointAnnotations on the map.
-  Future<PointAnnotationManager> createPointAnnotationManager() async {
-    return _mapboxMapsPlatform.createAnnotationManager('point').then((value) =>
-        PointAnnotationManager(
-            id: value, messenger: _mapboxMapsPlatform.binaryMessenger));
-  }
-
   /// Create a CircleAnnotationManager to add/remove/update CircleAnnotations on the map.
   Future<CircleAnnotationManager> createCircleAnnotationManager() async {
     return _mapboxMapsPlatform.createAnnotationManager('circle').then((value) =>
@@ -24,6 +17,14 @@ class _AnnotationManager {
   Future<PolylineAnnotationManager> createPolylineAnnotationManager() async {
     return _mapboxMapsPlatform.createAnnotationManager('polyline').then(
         (value) => PolylineAnnotationManager(
+            id: value, messenger: _mapboxMapsPlatform.binaryMessenger));
+  }
+
+  // Moved the point annotation manager to be hopefuly on top of the polyline manager
+  /// Create a PointAnnotationManager to add/remove/update PointAnnotations on the map.
+  Future<PointAnnotationManager> createPointAnnotationManager() async {
+    return _mapboxMapsPlatform.createAnnotationManager('point').then((value) =>
+        PointAnnotationManager(
             id: value, messenger: _mapboxMapsPlatform.binaryMessenger));
   }
 
